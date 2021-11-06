@@ -56,3 +56,12 @@ document.getElementById('clearAll').addEventListener('click', handleClearAll);
 function handleClearAll(e) {
     document.querySelector('ul').innerHTML = '';
 }
+
+/*
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value; 
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}*/
