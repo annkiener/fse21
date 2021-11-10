@@ -4,7 +4,7 @@ document.querySelector('form').addEventListener('submit', handleSubmitForm);
 // Event Handlers
 function handleSubmitForm(e) {
     e.preventDefault();
-    let input = document.querySelector('input');
+    let input = document.querySelector("div.main input[id='fname']");
     if (input.value != '')
         addTodo(input.value);
     input.value = '';
