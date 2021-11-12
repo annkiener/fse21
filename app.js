@@ -14,11 +14,14 @@ function handleSubmitForm(e) {
 function addTodo(todo) {
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
+    var x = document.getElementById("due").value;
+    //document.getElementById("main").innerHTML = x;
     li.innerHTML = `
-        <span class="todo-item">${todo}</span>
+        <span class="todo-item">${todo}<br><br>${x}</span>
         <button name="checkButton"><i class="fas fa-check-square"></i></button>
         <button name="deleteButton" ><i class="fas fa-trash"></i></button>
     `;
+    //li.classList.add(window.localStorage.setItem('todo', 'clean my room'));
     li.classList.add('todo-list-item');
     ul.appendChild(li);
 }
@@ -57,11 +60,11 @@ function handleClearAll(e) {
     document.querySelector('ul').innerHTML = '';
 }
 
-/*
+
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
 output.innerHTML = slider.value; 
 
 slider.oninput = function() {
   output.innerHTML = this.value;
-}*/
+}
