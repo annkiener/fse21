@@ -15,19 +15,19 @@
     </header>
 
     <div class="slidecontainer">
-        <label for="physical">Physical</label>
+        <label for="physical">Physical</label><br>
         <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
         
       </div>
 
       <div class="slidecontainer">
-        <label for="creative">Creative</label>
+        <label for="creative">Creative</label><br>
         <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
         
       </div>
 
       <div class="slidecontainer">
-        <label for="Logical">Logical</label>
+        <label for="Logical">Logical</label><br>
         <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
         
       </div>
@@ -35,12 +35,25 @@
 
     <div class="main"> 
         <form>
-            <input type="text" id="fname" todo="fname" placeholder="New Todo ..."><br><br>
-            <label for="due">Due date:</label><br><br>
+            <input type="text" id="fname" todo="fname" placeholder="New Todo ..."><br>
+            <div class="slidecontainer">
+                <label for="attention">Attention span: </label><br>
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">      
+        <div class="slidecontainer">
+            <label for="creativedemand">Creative demand: </label><br>
+            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+    </div>
+    <div class="slidecontainer">
+        <label for="physicaldemand">Physical demand: </label><br>
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+    </div>
+        <label for="due">Due date:</label><br>
             <input type="date" id="due" name="duedate" value="2021-11-22" min="2021-01-01" max="2022-12-31">
-            <button type="submit"><i class="fas fa-plus-square"></i></button>
-        </form>
-        <form>
+</div>
+        <button type="submit"><i class="fas fa-plus-square"></i></button>
+        </form><br>
+    </div> 
+    <!--    <form>
         <div id="checkboxes">
             <label for="attention">Attention span: </label><br>
             <input type="radio" class="right-aligned" id="low" name="attentionspan" value="low">
@@ -51,17 +64,19 @@
             <label for="rhigh">Rather High</label><br>
             <input type="radio" class="right-aligned" id="high" name="attentionspan"  value="high">
             <label for="high">High</label><br>
-        </div> </form>
-    </div>
-
+        </div> </form>-->
+        
     <div class="todoList">
             <ul>
             </ul>
             <a class="clearAll" id="clearAll">Clear All</a>
         </div>
 
-    </div>
-    
+    </div><br>
+    <form>
+        <label for="dayplanner">Day Planner</label>
+        <!-- display recommended tasks to do today according to mood levels-->
+    </form>
     <script type="text/javascript" src="app.js"></script>
 </body>
 </html>
