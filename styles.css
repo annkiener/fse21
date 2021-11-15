@@ -143,3 +143,16 @@ i {
     vertical-align:middle;
 
 }
+
+.right-aligned {
+    text-align: right;
+  }
+
+  .checkboxgroup {
+    display: inline - block;
+    text-align: center;
+    box-sizing: border-box;
+ }
+ .checkboxgroup label {
+    display: block;
+ }
