@@ -18,7 +18,7 @@ function addTodo(todo) {
     //document.getElementById("main").innerHTML = x;
     li.innerHTML = `
         <span class="todo-item">${todo}<br><br>${x}</span>
-        <button name="checkButton"><i class="fas fa-check-square"></i></button>
+        <button name="checkButton"><i class="fas fa-square"></i></button>
         <button name="deleteButton" ><i class="fas fa-trash"></i></button>
     `;
     //li.classList.add(window.localStorage.setItem('todo', 'clean my room'));
@@ -38,10 +38,16 @@ function handleClickDeleteOrCheck(e) {
 
 function checkTodo(e) {
     let item = e.target.parentNode;
-    if (item.style.textDecoration == 'line-through')
+    if (item.style.textDecoration == 'line-through'){
         item.style.textDecoration = 'none';
-    else
+        console.log(e.target.children)
+        console.log(e.target.children[0])
+        e.target.children[0].classList.replace("fa-check-square", "fa-square");
+    }
+    else{
         item.style.textDecoration = 'line-through';
+        e.target.children[0].classList.replace("fa-square", "fa-check-square");
+    }
 }
 
 function deleteTodo(e) {
