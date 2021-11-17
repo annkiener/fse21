@@ -1,7 +1,7 @@
 html {
     height: 100vh;
     min-width: 600px;
-    background-color: lightgray;
+    background-color: white;
     background-repeat: no-repeat;
     background-size: auto;
 }
@@ -22,6 +22,7 @@ html {
     max-width: 500px;
     padding: 1.5rem 0;
     align-items: center;
+    color: #f44b48;
 }
 
 .main {
@@ -36,6 +37,7 @@ form {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    border: #f44b48;
 }
 
 input[type="text"] {
@@ -117,7 +119,7 @@ i {
     width: 95%;
     height: 12px;
     border-radius: 7px;  
-    background: lightslategray;
+    background: #fccdcd;
     outline: none;
     opacity: 0.7;
     -webkit-transition: .2s;
@@ -130,7 +132,7 @@ i {
     width: 20px;
     height: 20px;
     border-radius: 50%; 
-    background: #04AA6D;
+    background: #f19262;
     cursor: pointer;
   }
   
@@ -138,7 +140,7 @@ i {
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: #04AA6D;
+    background: #f19262;
     cursor: pointer;
   }
   
