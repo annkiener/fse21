@@ -9,11 +9,15 @@
     <img src="image2vector.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="container">
+<body class="container" onload="loadUsernames()">
     <header class="logo">
         <h2 class="headline">Todo App</h2>
         <h3 class="mood">How is your mood today?</h3>
     </header>
+    
+    <select id="Username" name="Username" onchange="loadTodos(this.value)">
+        <option value=""></option>
+    </select>
 
     <div class="slidecontainer">
         <label for="physical">Physical</label><br>

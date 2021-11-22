@@ -1,56 +1,10 @@
-{
-    "id": 100,
-    "belongsToUser": "782950ce-f920-4f98-a69e-a899729e6267",
-    "created": "2015-02-05T02:40:31Z",
-    "lists": [{
-        "name": "Home", 
-        "tasks": [
-          {
-            "name": "Clean room", 
-            "done": false
-  
-          }, {
-            "name": "Get storage unit", 
-            "done": false
-          }
-        ]
-      }, {
-        "name": "Work", 
-        "tasks": [
-          {
-            "name": "Analysis", 
-            "done": false
-          }, {
-            "name": "Sorting", 
-            "done": false, 
-            "subtasks": [
-              {
-                "name": "Save files", 
-                "done": false, 
-                "subtasks": [
-                  {
-                    "name": 
-                    "Pull from computer 1", 
-                    "done": false
-  
-                  }, {
-                    "name": "Walk to computer 2", 
-                    "done": false
-  
-                  }, {
-                    "name": "Save on computer 2", 
-                    "done": false
-  
-                  }]                
-              },
-              {
-                "name": "Sort files", 
-                "done": false
-  
-              }, {
-                "name": "Plot data",
-                "done": false
-              }]
-          }]
-      }]
-  }
+[
+  {"title":"test1", "user":"marco", "done":true, "due":"2021-11-22"},
+  {"title":"test2", "user":"marco", "done": false, "due":"2021-11-02"},
+  {"title":"test3", "user":"dominique", "done": false, "due":"2021-02-22"},
+  {"title":"test4", "user":"dominique", "done": false, "due":"2021-01-22"},
+  {"title":"test5", "user":"ann", "done": false, "due":"2021-11-12"},
+  {"title":"test6", "user":"ann", "done": false, "due":"2021-11-30"},
+  {"title":"test7", "user":"ann", "done": false, "due":"2021-10-22"},
+  {"title":"test8", "user":"test", "done": false, "due":"2021-12-22"}
+  ]
