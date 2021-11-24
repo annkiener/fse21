@@ -9,11 +9,15 @@
     <img src="image2vector.svg">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="container">
+<body class="container" onload="loadUsernames()">
     <header class="logo">
         <h2 class="headline">Todo App</h2>
         <h3 class="mood">How is your mood today?</h3>
     </header>
+    
+    <select id="Username" name="Username" onchange="loadTodos(this.value)">
+        <option value=""></option>
+    </select>
 
     <div class="slidecontainer">
         <label for="physical">Physical</label><br>
@@ -39,19 +43,21 @@
             <input type="text" id="fname" todo="fname" placeholder="New Todo ..."><br>
             <div class="slidecontainer">
                 <label for="attention">Attention span: </label><br>
-                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">      
-        <div class="slidecontainer">
-            <label for="creativedemand">Creative demand: </label><br>
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-    </div>
-    <div class="slidecontainer">
-        <label for="physicaldemand">Physical demand: </label><br>
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-    </div>
-        <label for="due">Due date:</label><br>
-            <input type="date" id="due" name="duedate" value="2021-11-22" min="2021-01-01" max="2022-12-31">
-</div>
-        <button type="submit"><i class="fas fa-plus-square"></i></button>
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            </div>      
+            <div class="slidecontainer">
+                <label for="creativedemand">Creative demand: </label><br>
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            </div>
+            <div class="slidecontainer">
+                <label for="physicaldemand">Physical demand: </label><br>
+                <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+            </div>
+            <label for="due">Due date:</label><br>
+            <input type="date" id="due" name="duedate" value="2021-11-22" min="2021-01-01" max="2022-12-31"><br>
+            <textarea type="text" id="description"  name="description" placeholder="Description" style="height: 4em;"></textarea>
+
+            <button type="submit"><i class="fas fa-plus-square"></i></button>
         </form><br>
     </div> 
     <!--    <form>
@@ -71,9 +77,8 @@
             <ul>
             </ul>
             <a class="clearAll" id="clearAll">Clear All</a>
-        </div>
-
     </div><br>
+
     <form>
         <header class="logo">
             <h3>Day Planner</h3>
