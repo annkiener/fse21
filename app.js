@@ -20,26 +20,32 @@ function handleSubmitForm(e) {
 }
 
 function addTodoFromWebsite(todo){
-    var x = document.getElementById("due").value; 
-    addTodo(todo, x, false);
+    var due = document.getElementById("due").value; 
+    var desc = document.getElementById("description").innerText;
+    addTodo(todo, due, false, desc);
 }
 
 // Helpers
-function addTodo(todo, due, done) {
+function addTodo(todo, due, done, description) {
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
 
     //document.getElementById("main").innerHTML = x;
     li.innerHTML = `
-        <span class="todo-item">${todo}<br><br>${due}</span>
-        <button name="checkButton"><i class="fas fa-square"></i></button>
-        <button name="deleteButton" ><i class="fas fa-trash"></i></button>
+        <details>
+          <summary>
+            <span class="todo-item">${todo}<br><br>${due}</span>
+            <button name="checkButton"><i class="fas fa-square"></i></button>
+            <button name="deleteButton" ><i class="fas fa-trash"></i></button>
+          </summary>
+          <p>${description}</p>
+        </details>
     `;
     //li.classList.add(window.localStorage.setItem('todo', 'clean my room'));
     li.classList.add('todo-list-item');
     ul.appendChild(li);
     if(done){
-      actuallyCheckTodo(li.children[1]); //check it
+      actuallyCheckTodo(li.children[0].children[0].children[1]); //give the check the checkbutton
     }
 }
 
@@ -158,7 +164,7 @@ function loadTodos(name){
   console.log(name);
     tasks.forEach(todo => {
       if(todo.user == name){
-        addTodo(todo.title, todo.due, todo.done);
+        addTodo(todo.title, todo.due, todo.done, todo.description);
       }
     });
 }
