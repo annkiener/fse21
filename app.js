@@ -102,33 +102,6 @@ slider.oninput = function() {
   output.innerHTML = this.value;
 }
 
-let poll = {
-  question:"What's your favorite programming language?",
-  answers:[
-    "C", "Java", "PHP", "JavaScript"
-  ],
-  pollCount:20,
-  answersWeight:[4, 4, 2, 10],
-  selectedAnswer:-1
-};
-
-let pollDOM = {
-  question:document.querySelector(".poll .question"),
-  answers:document.querySelector(".poll .answers")
-};
-
-pollDOM.question.innerText = poll.question;
-pollDOM.answers.innerHTML = poll.answers.map(function(answer,i){
-  return (
-    `
-      <div class="answer" onclick="markAnswer('${i}')">
-        ${answer}
-        <span class="percentage-bar"></span>
-        <span class="percentage-value"></span>
-      </div>
-    `
-  );
-}).join("");
 
 function markAnswer(i){
   poll.selectedAnswer = +i;

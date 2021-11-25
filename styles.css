@@ -168,3 +168,13 @@ i {
  .checkboxgroup label {
     display: block;
  }
+
+ select {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    color:#595959;
+    border:1px solid #ccc;
+    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+}
