@@ -24,20 +24,20 @@
     <div id="webpage" class="hidden">
         <div class="slidecontainer">
             <label for="physical">Physical</label><br>
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-            
+            <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="physical">
+            <span id="value"></span>
         </div>
 
         <div class="slidecontainer">
             <label for="creative">Creative</label><br>
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-            
+            <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="creative">
+            <span id="value2"></span>
         </div>
 
         <div class="slidecontainer">
             <label for="Logical">Logical</label><br>
-            <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-            
+            <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="logical">
+            <span id="value3"></span>
         </div>
         
 
@@ -48,50 +48,35 @@
                     <input type="text" id="fname" todo="fname" placeholder="New Todo ..."><br>
                     <div class="slidecontainer">
                         <label for="attention">Attention span: </label><br>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                        <input type="range" min="1" max="100" value="50" class="slider" id="attentionSpan">
                     </div>      
                     <div class="slidecontainer">
                         <label for="creativedemand">Creative demand: </label><br>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                        <input type="range" min="1" max="100" value="50" class="slider" id="creativeDemand">
                     </div>
                     <div class="slidecontainer">
                         <label for="physicaldemand">Physical demand: </label><br>
-                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                        <input type="range" min="1" max="100" value="50" class="slider" id="physicalDemand">
                     </div>
                     <label for="due">Due date:</label><br>
-                    <input type="date" id="due" name="duedate" value="2021-11-22" min="2021-01-01" max="2022-12-31"><br>
+                    <input type="date" id="due" name="duedate" value="2021-12-17" min="2021-01-01" max="2022-12-31"><br>
                     <textarea type="text" id="description"  name="description" placeholder="Description" style="height: 4em;"></textarea>
 
                     <button type="submit"><i class="fas fa-plus-square"></i></button>
                 </form><br>
             </details>
         </div> 
-        <!--    <form>
-            <div id="checkboxes">
-                <label for="attention">Attention span: </label><br>
-                <input type="radio" class="right-aligned" id="low" name="attentionspan" value="low">
-                <label for="low">Low</label><br>
-                <input type="radio" class="right-aligned" id="rlow" name="attentionspan"  value="rlow">
-                <label for="rlow">Rather Low</label><br>
-                <input type="radio" class="right-aligned" id="rhigh" name="attentionspan"  value="rhigh">
-                <label for="rhigh">Rather High</label><br>
-                <input type="radio" class="right-aligned" id="high" name="attentionspan"  value="high">
-                <label for="high">High</label><br>
-            </div> </form>-->
             
+            <header class="logo">
+                <h3>Day Planner</h3>
+            </header>
+
+
         <div class="todoList">
                 <ul>
                 </ul>
                 <a class="clearAll" id="clearAll">Clear All</a>
         </div><br>
-
-        <form>
-            <header class="logo">
-                <h3>Day Planner</h3>
-            </header>
-
-            <!-- display recommended tasks to do today according to mood levels-->
-        </form>
     </div>
     <script type="text/javascript" src="app.js"></script>
 </body>

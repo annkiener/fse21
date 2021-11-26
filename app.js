@@ -1,7 +1,8 @@
 let tasks = [];
 let loadedTasks  = false;
 let username = "";
-
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 // Selectors
 document.querySelector('form').addEventListener('submit', handleSubmitForm);
 
@@ -14,21 +15,42 @@ function handleSubmitForm(e) {
     input.value = '';
 }
 
+function getSliderValues(id) {
+  var moodNow = document.getElementById(id) 
+  if(id == "physical"){
+    var output = document.getElementById("value");
+    
+  }
+  if(id =="creative"){
+    var output = document.getElementById("value2");
+  }
+  if(id == "logical"){
+    var output = document.getElementById("value3");
+  }
+ 
+  let update = () => output.innerHTML = moodNow.value;
+  moodNow.addEventListener('input', update);
+  update();
+}
+
 function addTodoFromWebsite(todo){
     var due = document.getElementById("due").value; 
     var desc = document.getElementById("description").value;
+    var attention = document.getElementById("attentionSpan").value;
+    var creative = document.getElementById("creativeDemand").value;
+    var physical = document.getElementById("physicalDemand").value;
     console.log(desc);
-    let id = storeNewTodo(todo, username, false, due, desc);
-    addTodo(todo, due, false, desc, id);
+    let id = storeNewTodo(todo, username, false, due, desc, attention, creative, physical);
+    addTodo(todo, due, false, desc, id, attention, creative, physical);
     document.getElementById("newTodo").open = false;
+    //we have to clear the values again, otherwise they'll stay like that
 }
 
 // Helpers
-function addTodo(todo, due, done, description, id) {
+function addTodo(todo, due, done, description, id, attention, creative, physical) {
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
 
-    //document.getElementById("main").innerHTML = x;
     li.innerHTML = `
         <details>
           <summary>
@@ -38,8 +60,12 @@ function addTodo(todo, due, done, description, id) {
             <span class="hidden">${id}</span>
           </summary>
           <p>${description}</p>
+          <p>${attention}</p>
+          <p>${creative}</p>
+          <p>${physical}</p>
         </details>
     `;    
+    // the buttons are not yet positioned in the right place.
     //li.classList.add(window.localStorage.setItem('todo', 'clean my room'));
     li.classList.add('todo-list-item');
     ul.appendChild(li);
@@ -48,6 +74,11 @@ function addTodo(todo, due, done, description, id) {
     }
 }
 
+//sorting the todos according to the mood
+function sortPlanner(){
+
+
+}
 /**
  * stores a new todo in the tasks and stores it
  * @param {the title of the todo} title 
@@ -55,18 +86,32 @@ function addTodo(todo, due, done, description, id) {
  * @param {is it done} done 
  * @param {the due date} due 
  * @param {description} description 
+ * @param {attention} attention
+ * @param {creative} creative
+ * @param {physical} physical
  */
-function storeNewTodo(title, user, done, due, description){
+function storeNewTodo(title, user, done, due, description, attention, creative, physical){
   let highestId = 0;
+  let priority = today;
   tasks.forEach(todo =>{
     highestId = todo.id > highestId ? todo.id : highestId;
+    priority = todo.due >= today ? todo.due : priority;
   })
   
-  tasks.push({"id": ++highestId, "title": title, "user": user, "done": done, "due": due, "description": description});
+  tasks.push({"id": ++highestId, "title": title, "user": user, "done": done, "due": due, "description": description, "attention": attention, "creative": creative, "physical": physical});
   localStorage.setItem("tasks", JSON.stringify(tasks));
+  tasks.sort(function (a, b) {
+    if (a.due > b.due) return 1;
+    if (a.due < b.due) return -1;
+    return 0;
+   
+  });
   return highestId;
+
+
 }
 
+console.log(tasks)
 document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck);
 
 function handleClickDeleteOrCheck(e) {
@@ -129,42 +174,6 @@ function handleClearAll(e) {
 }
 
 
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value; 
-
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-
-
-function markAnswer(i){
-  poll.selectedAnswer = +i;
-  try {
-    document.querySelector(".poll .answers .answer.selected").classList.remove("selected");
-  } catch(msg){}
-  document.querySelectorAll(".poll .answers .answer")[+i].classList.add("selected");
-  showResults();
-}
-
-function showResults(){
-  let answers = document.querySelectorAll(".poll .answers .answer");
-  for(let i=0;i<answers.length;i++){
-    let percentage = 0;
-    if(i == poll.selectedAnswer){
-      percentage = Math.round(
-        (poll.answersWeight[i]+1) * 100 / (poll.pollCount+1)
-      );
-    } else {
-      percentage = Math.round(
-        (poll.answersWeight[i]) * 100 / (poll.pollCount+1)
-      );
-    }
-    
-    answers[i].querySelector(".percentage-bar").style.width = percentage + "%";
-    answers[i].querySelector(".percentage-value").innerText = percentage + "%";
-  }
-}
 
 /**
  * loads all todos from a user and displays them
@@ -193,7 +202,7 @@ function loadTodos(name){
   username = name;
   tasks.forEach(todo => {
     if(todo.user == name){
-      addTodo(todo.title, todo.due, todo.done, todo.description, todo.id);
+      addTodo(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.creative, todo.physical);
       console.log(todo.id);
     }
   });

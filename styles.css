@@ -173,11 +173,13 @@ i {
 
   .checkboxgroup {
     display: inline - block;
-    text-align: center;
+    text-align: right;
+    float: right;
     box-sizing: border-box;
  }
  .checkboxgroup label {
     display: block;
+    float: right;
  }
 
  select {
@@ -189,3 +191,14 @@ i {
     font-size: 1rem;
     font-family: 'Raleway', sans-serif;
 }
+
+summary{
+
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 10px 25px;
+    height: 100%;
+    overflow-y: auto;
+}
+

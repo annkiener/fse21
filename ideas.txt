@@ -1,0 +1,15 @@
+Ein einziger slider für mood.  
+
+Physischer fitness -> bei 0 voll fit, bei 100 krank? 
+
+Distinguish between these two. 
+
+Die tasks von heute nicht verschiebbar, je nach stimmung das von den nächsten tagen. 
+
+Slider immer wieder verstellen jenachdem. 
+
+Farbschema, wie nötig ist ein task? 
+Due dates zuerst, danach je nach regler
+Deadline heute kann man nicht abwählen 
+
+User login.
