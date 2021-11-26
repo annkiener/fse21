@@ -15,6 +15,17 @@ html {
     font-family: 'Raleway', sans-serif;
 }
 
+.hidden {
+    display: none;
+}
+
+.newTodo[open] {
+    border-style: solid;
+    border-color: #595959;
+    border-width: 1px;
+    border-radius: 0.3em;
+}
+
 .logo {
     display: flex;
     margin: auto;
@@ -26,8 +37,8 @@ html {
 }
 
 .main {
-    padding: 20px;
-    
+    padding-top: 20px;
+    width: 100%;
 }
 
 form {
