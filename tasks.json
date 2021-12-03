@@ -1,9 +1,9 @@
 [
   {"id": 1, "title":"test1", "user":"marco", "done":true, "due":"2021-11-22", "description": "test", "attention": 60, "creative": 60, "physical": 60},
-  {"id": 2, "title":"test2", "user":"marco", "done": false, "due":"2021-11-02", "description": "test","attention": "60"},
-  {"id": 3, "title":"test3", "user":"dominique", "done": false, "due":"2021-02-22", "description": "test","attention": "60"},
-  {"id": 4, "title":"test4", "user":"dominique", "done": false, "due":"2021-01-22", "description": "test","attention": "60"},
-  {"id": 5, "title":"test5", "user":"ann", "done": false, "due":"2021-11-12", "description": "test","attention": "60"},
-  {"id": 6, "title":"test6", "user":"ann", "done": false, "due":"2021-11-30", "description": "test","attention": "60"},
-  {"id": 7, "title":"test7", "user":"ann", "done": false, "due":"2021-10-22", "description": "test", "attention": "60"}
+  {"id": 2, "title":"test2", "user":"marco", "done": false, "due":"2021-11-02", "description": "test","attention": 30, "creative": 90, "physical": 50},
+  {"id": 3, "title":"test3", "user":"dominique", "done": false, "due":"2021-02-22", "description": "test","attention": 60, "creative": 60, "physical": 60},
+  {"id": 4, "title":"test4", "user":"dominique", "done": false, "due":"2021-01-22", "description": "test","attention": 60, "creative": 60, "physical": 60},
+  {"id": 5, "title":"test5", "user":"ann", "done": false, "due":"2021-11-12", "description": "test","attention": 60, "creative": 60, "physical": 60},
+  {"id": 6, "title":"test6", "user":"ann", "done": false, "due":"2021-11-30", "description": "test","attention": 60, "creative": 60, "physical": 60},
+  {"id": 7, "title":"test7", "user":"ann", "done": false, "due":"2021-10-22", "description": "test", "attention": 60, "creative": 60, "physical": 60}
 ]
