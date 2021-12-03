@@ -2,7 +2,8 @@ let tasks = [];
 let loadedTasks  = false;
 let username = "";
 var today = new Date();
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+//today getDate returns a number which might have length 1
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+(today.getDate() < 10 ? '0' + today.getDate() : today.getDate()); 
 // Selectors
 document.querySelector('form').addEventListener('submit', handleSubmitForm);
 
@@ -31,28 +32,34 @@ function getSliderValues(id) {
   let update = () => output.innerHTML = moodNow.value;
   moodNow.addEventListener('input', update);
   update();
+  loadTodos(username);
 }
 
 function addTodoFromWebsite(todo){
     var due = document.getElementById("due").value; 
     var desc = document.getElementById("description").value;
-    var attention = document.getElementById("attentionSpan").value;
-    var creative = document.getElementById("creativeDemand").value;
-    var physical = document.getElementById("physicalDemand").value;
-    console.log(desc);
+    var attention = parseInt(document.getElementById("attentionSpan").value);
+    var creative = parseInt(document.getElementById("creativeDemand").value);
+    var physical = parseInt(document.getElementById("physicalDemand").value);
+    console.log(typeof(attention));
     let id = storeNewTodo(todo, username, false, due, desc, attention, creative, physical);
     addTodo(todo, due, false, desc, id, attention, creative, physical);
-    document.getElementById("newTodo").open = false;
     //we have to clear the values again, otherwise they'll stay like that
+    document.getElementById("newTodo").open = false;
+    document.getElementById("attentionSpan").value = 50;
+    document.getElementById("creativeDemand").value = 50;
+    document.getElementById("physicalDemand").value = 50;
+    loadTodos(username);
+    
 }
 
 // Helpers
-function addTodo(todo, due, done, description, id, attention, creative, physical) {
+function addTodo(todo, due, done, description, id, attention, creative, physical, color="#000") {
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
 
     li.innerHTML = `
-        <details>
+        <details style="color: ${color}">
           <summary>
             <span class="todo-item">${todo}<br><br>${due}</span>            
             <button name="checkButton"><i class="fas fa-square"></i></button>
@@ -73,12 +80,19 @@ function addTodo(todo, due, done, description, id, attention, creative, physical
       actuallyCheckTodo(li.children[0].children[0].children[1]); //give the check the checkbutton
     }
 }
+function addTodo_MoodNotMet(todo, due, done, description, id, attention, creative, physical) {
+  addTodo(todo, due, done, description, id, attention, creative, physical, color="#bbb");
+}
+function addTodo_Today(todo, due, done, description, id, attention, creative, physical) {
+  addTodo(todo, due, done, description, id, attention, creative, physical, color="red");
+}
+
 
 //sorting the todos according to the mood
 function sortPlanner(){
 
-
 }
+
 /**
  * stores a new todo in the tasks and stores it
  * @param {the title of the todo} title 
@@ -182,7 +196,7 @@ function handleClearAll(e) {
  */
 function loadTodos(name){  
   handleClearAll(null);
-  
+  console.log("loading todos");
   //show new user name "form"
   if(name == "new User"){
     document.getElementById("newUserName").classList.remove("hidden");
@@ -197,15 +211,58 @@ function loadTodos(name){
     return;
   }
   document.getElementById("webpage").classList.remove("hidden");
-
-  console.log("1");
   username = name;
-  tasks.forEach(todo => {
-    if(todo.user == name){
-      addTodo(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.creative, todo.physical);
-      console.log(todo.id);
-    }
+
+  let todaysTasks = tasks.filter(todo => todo.due == date);
+  todaysTasks.forEach(todo => {    
+    addTodo_Today(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.creative, todo.physical);    
   });
+
+  let histasks = tasks.filter(todo => todo.user == username && !todaysTasks.includes(todo));
+  let filtered = filterAndSort(histasks)
+  filtered.forEach(todo => {    
+    addTodo(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.creative, todo.physical);    
+  });
+  let moodNotMetTasks = histasks.filter(todo => !filtered.includes(todo) && !todaysTasks.includes(todo));
+  moodNotMetTasks.sort(customSort);
+  moodNotMetTasks.forEach(todo => {    
+    addTodo_MoodNotMet(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.creative, todo.physical);    
+  });
+  console.log("appropriate tasks");
+  console.log(filtered);
+  console.log("inappropriate tasks");
+  console.log(moodNotMetTasks);
+}
+
+/**
+ * filters and sorts the tasks by user and the mood 
+ * @param {*} filtered the tasks of the user 
+ * @returns all tasks of this user and with at least the mood
+ */
+function filterAndSort(filtered){
+  var attention = document.getElementById("physical").value;
+  var creative = document.getElementById("creative").value;
+  var physical = document.getElementById("logical").value;
+  console.log("attention:" + attention + "; creative: " + creative  + "; physical: "+ physical);  
+  filtered = filtered.filter(todo => todo.attention <= attention && todo.creative <= creative && todo.physical <= physical);
+  filtered.sort(customSort); 
+  return filtered
+}
+
+/**
+ * a custom sort function.
+ * currently sorts by total demand of the task
+ * @param {Todo} todo1 
+ * @param {Todo} todo2 
+ * @returns 
+ */
+function customSort(todo1, todo2){
+  //i don't know what's best here //TODO
+  let totalDemand1 = todo1.attention + todo1.creative + todo1. physical;
+  let totalDemand2 = todo2.attention + todo2.creative + todo2. physical;
+  if (totalDemand1<totalDemand2) return -1;
+  if (totalDemand1>totalDemand2) return 1;
+  return 0;
 }
 
 /**
@@ -255,6 +312,7 @@ async function loadTasks(){
       let response = await fetch("/tasks.json");  
       tasks = await response.json();    
       loadedTasks = true;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
     }
     else{
       tasks = JSON.parse(localStorage.getItem("tasks"));
