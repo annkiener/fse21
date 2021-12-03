@@ -49,6 +49,8 @@ function addTodoFromWebsite(todo){
     document.getElementById("attentionSpan").value = 50;
     document.getElementById("creativeDemand").value = 50;
     document.getElementById("physicalDemand").value = 50;
+    document.getElementById("description").value = "";
+
     loadTodos(username);
     
 }

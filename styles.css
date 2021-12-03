@@ -1,7 +1,7 @@
 html {
     height: 100vh;
     min-width: 600px;
-    background-color: white;
+    background-color: #fcfbfb;
     background-repeat: no-repeat;
     background-size: auto;
 }
@@ -134,7 +134,7 @@ i {
 
 .slider {
     -webkit-appearance: none;
-    width: 95%;
+    width: 90%;
     height: 12px;
     border-radius: 7px;  
     background: #fccdcd;
