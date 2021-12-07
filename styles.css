@@ -200,5 +200,7 @@ summary{
     padding: 10px 25px;
     height: 100%;
     overflow-y: auto;
+    display: flex;
+    width: 500px;
 }
 
