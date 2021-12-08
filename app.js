@@ -17,23 +17,51 @@ function handleSubmitForm(e) {
 }
 
 function getSliderValues(id) {
-  var moodNow = document.getElementById(id) 
+  var moodNow = document.getElementById(id);
+  var display = document.getElementById("display");
+  getVal = moodNow.value;
   if(id == "physical"){
     var output = document.getElementById("value");
-    
   }
-  if(id =="creative"){
+
+  if(getVal<30) {
+    display.innerHTML = "My mood is terrible, I feel hopeless";
+  }
+  
+  if(getVal>=30 && getVal<=60) {
+    display.innerHTML = "My mood is OK, I feel fine";
+  }
+  
+  if(getVal>60){
+    display.innerHTML = "My mood is excellent, I feel optimistic";
+  }
+  
+
+  /*if(id =="creative"){
     var output = document.getElementById("value2");
   }
   if(id == "logical"){
     var output = document.getElementById("value3");
-  }
+  }*/
  
   let update = () => output.innerHTML = moodNow.value;
   moodNow.addEventListener('input', update);
+
+  if(update<7) {
+    output.innerHTML = "Modest";
+  }
+  
+  if(update>=7 && update<=15) {
+    output.innerHTML = "Moderate";
+  }
+  
+  if(update>15){
+    output.innerHTML = "Extensive";
+  }
   update();
   loadTodos(username);
 }
+
 
 function addTodoFromWebsite(todo){
     var due = document.getElementById("due").value; 
@@ -242,11 +270,11 @@ function loadTodos(name){
  * @returns all tasks of this user and with at least the mood
  */
 function filterAndSort(filtered){
-  var attention = document.getElementById("physical").value;
-  var creative = document.getElementById("creative").value;
-  var physical = document.getElementById("logical").value;
-  console.log("attention:" + attention + "; creative: " + creative  + "; physical: "+ physical);  
-  filtered = filtered.filter(todo => todo.attention <= attention && todo.creative <= creative && todo.physical <= physical);
+  var mood = document.getElementById("physical").value;
+//  var creative = document.getElementById("creative").value;
+//  var physical = document.getElementById("logical").value;
+  console.log("mood:" + mood );  
+//  filtered = filtered.filter(todo => todo.attention <= attention && todo.creative <= creative && todo.physical <= physical);
   filtered.sort(customSort); 
   return filtered
 }

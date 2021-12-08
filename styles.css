@@ -204,3 +204,16 @@ summary{
     width: 500px;
 }
 
+.slidecontainer{
+
+
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+}
+
+.slidecontainer .sliderbar{
+
+    width: 100%;
+}
