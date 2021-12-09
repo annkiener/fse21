@@ -19,12 +19,11 @@ function handleSubmitForm(e) {
 function getSliderValues(id) {
   var moodNow = document.getElementById(id);
   var display = document.getElementById("display");
-  getVal = moodNow.value;
   if(id == "physical"){
     var output = document.getElementById("value");
   }
 
-  if(getVal<30) {
+ /* if(getVal<30) {
     display.innerHTML = "My mood is terrible, I feel hopeless";
   }
   
@@ -37,27 +36,15 @@ function getSliderValues(id) {
   }
   
 
-  /*if(id =="creative"){
+  if(id =="creative"){
     var output = document.getElementById("value2");
-  }
+  }*/
   if(id == "logical"){
     var output = document.getElementById("value3");
-  }*/
+  }
  
   let update = () => output.innerHTML = moodNow.value;
   moodNow.addEventListener('input', update);
-
-  if(update<7) {
-    output.innerHTML = "Modest";
-  }
-  
-  if(update>=7 && update<=15) {
-    output.innerHTML = "Moderate";
-  }
-  
-  if(update>15){
-    output.innerHTML = "Extensive";
-  }
   update();
   loadTodos(username);
 }
@@ -67,15 +54,15 @@ function addTodoFromWebsite(todo){
     var due = document.getElementById("due").value; 
     var desc = document.getElementById("description").value;
     var attention = parseInt(document.getElementById("attentionSpan").value);
-    var creative = parseInt(document.getElementById("creativeDemand").value);
+    //var creative = parseInt(document.getElementById("creativeDemand").value);
     var physical = parseInt(document.getElementById("physicalDemand").value);
     console.log(typeof(attention));
-    let id = storeNewTodo(todo, username, false, due, desc, attention, creative, physical);
-    addTodo(todo, due, false, desc, id, attention, creative, physical);
+    let id = storeNewTodo(todo, username, false, due, desc, attention, physical);
+    addTodo(todo, due, false, desc, id, attention, physical);
     //we have to clear the values again, otherwise they'll stay like that
     document.getElementById("newTodo").open = false;
     document.getElementById("attentionSpan").value = 50;
-    document.getElementById("creativeDemand").value = 50;
+    //document.getElementById("creativeDemand").value = 50;
     document.getElementById("physicalDemand").value = 50;
     document.getElementById("description").value = "";
 
@@ -84,7 +71,7 @@ function addTodoFromWebsite(todo){
 }
 
 // Helpers
-function addTodo(todo, due, done, description, id, attention, creative, physical, color="#000") {
+function addTodo(todo, due, done, description, id, attention, physical, color="#000") {
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
 
@@ -98,7 +85,6 @@ function addTodo(todo, due, done, description, id, attention, creative, physical
           </summary>
           <p>${description}</p>
           <p>${attention}</p>
-          <p>${creative}</p>
           <p>${physical}</p>
         </details>
     `;    
@@ -110,11 +96,11 @@ function addTodo(todo, due, done, description, id, attention, creative, physical
       actuallyCheckTodo(li.children[0].children[0].children[1]); //give the check the checkbutton
     }
 }
-function addTodo_MoodNotMet(todo, due, done, description, id, attention, creative, physical) {
-  addTodo(todo, due, done, description, id, attention, creative, physical, color="#bbb");
+function addTodo_MoodNotMet(todo, due, done, description, id, attention, physical) {
+  addTodo(todo, due, done, description, id, attention, physical, color="#bbb");
 }
-function addTodo_Today(todo, due, done, description, id, attention, creative, physical) {
-  addTodo(todo, due, done, description, id, attention, creative, physical, color="red");
+function addTodo_Today(todo, due, done, description, id, attention, physical) {
+  addTodo(todo, due, done, description, id, attention, physical, color="red");
 }
 
 
@@ -131,10 +117,10 @@ function sortPlanner(){
  * @param {the due date} due 
  * @param {description} description 
  * @param {attention} attention
- * @param {creative} creative
+ *
  * @param {physical} physical
  */
-function storeNewTodo(title, user, done, due, description, attention, creative, physical){
+function storeNewTodo(title, user, done, due, description, attention, physical){
   let highestId = 0;
   let priority = today;
   tasks.forEach(todo =>{
@@ -142,7 +128,7 @@ function storeNewTodo(title, user, done, due, description, attention, creative, 
     priority = todo.due >= today ? todo.due : priority;
   })
   
-  tasks.push({"id": ++highestId, "title": title, "user": user, "done": done, "due": due, "description": description, "attention": attention, "creative": creative, "physical": physical});
+  tasks.push({"id": ++highestId, "title": title, "user": user, "done": done, "due": due, "description": description, "attention": attention, "physical": physical});
   localStorage.setItem("tasks", JSON.stringify(tasks));
   tasks.sort(function (a, b) {
     if (a.due > b.due) return 1;
@@ -245,18 +231,18 @@ function loadTodos(name){
 
   let todaysTasks = tasks.filter(todo => todo.due == date);
   todaysTasks.forEach(todo => {    
-    addTodo_Today(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.creative, todo.physical);    
+    addTodo_Today(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.physical);    
   });
 
   let histasks = tasks.filter(todo => todo.user == username && !todaysTasks.includes(todo));
   let filtered = filterAndSort(histasks)
   filtered.forEach(todo => {    
-    addTodo(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.creative, todo.physical);    
+    addTodo(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.physical);    
   });
   let moodNotMetTasks = histasks.filter(todo => !filtered.includes(todo) && !todaysTasks.includes(todo));
   moodNotMetTasks.sort(customSort);
   moodNotMetTasks.forEach(todo => {    
-    addTodo_MoodNotMet(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.creative, todo.physical);    
+    addTodo_MoodNotMet(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.physical);    
   });
   console.log("appropriate tasks");
   console.log(filtered);
@@ -270,11 +256,11 @@ function loadTodos(name){
  * @returns all tasks of this user and with at least the mood
  */
 function filterAndSort(filtered){
-  var mood = document.getElementById("physical").value;
+  var attention = document.getElementById("physical").value;
 //  var creative = document.getElementById("creative").value;
-//  var physical = document.getElementById("logical").value;
-  console.log("mood:" + mood );  
-//  filtered = filtered.filter(todo => todo.attention <= attention && todo.creative <= creative && todo.physical <= physical);
+  var physical = document.getElementById("logical").value;
+  console.log("attention: " + attention + "physical: " + physical);  
+  filtered = filtered.filter(todo => todo.attention <= attention && todo.physical <= physical);
   filtered.sort(customSort); 
   return filtered
 }
@@ -288,8 +274,8 @@ function filterAndSort(filtered){
  */
 function customSort(todo1, todo2){
   //i don't know what's best here //TODO
-  let totalDemand1 = todo1.attention + todo1.creative + todo1. physical;
-  let totalDemand2 = todo2.attention + todo2.creative + todo2. physical;
+  let totalDemand1 = todo1.attention + todo1. physical;
+  let totalDemand2 = todo2.attention + todo2. physical;
   if (totalDemand1<totalDemand2) return -1;
   if (totalDemand1>totalDemand2) return 1;
   return 0;

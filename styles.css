@@ -6,8 +6,9 @@ html {
     background-size: auto;
 }
 
+
 .container {
-    width: 600px;
+    width: 800px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -201,7 +202,6 @@ summary{
     height: 100%;
     overflow-y: auto;
     display: flex;
-    width: 500px;
 }
 
 .slidecontainer{
@@ -216,4 +216,12 @@ summary{
 .slidecontainer .sliderbar{
 
     width: 100%;
+    display: flex;
+}
+
+ .sliderlabels{
+
+    display: flex;
+    width: 30%;
+    text-align: center;
 }

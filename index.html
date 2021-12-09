@@ -23,27 +23,40 @@
 <br><br>
     <div id="webpage" class="hidden">
         <div class="slidecontainer">
-            <div class="sliderlabels">Todo</div>
+            <div class="sliderlabels">My mood is excellent, I feel optimistic</div>
+           <br><br> 
             <div class="sliderbar">
-                <label for="physical" id="display"></label><br>
+                <div class="sliderlabels">0</div>
+               <!-- <label for="physical" id="display"></label><br>-->
                 <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="physical">
-                <span id="value"></span>
+                <span hidden id="value"></span>
+                <div class="sliderlabels">100</div>
             </div>
-            <div class="sliderlabels">Todo</div>
+            
+            <div class="sliderlabels">My mood is terrible, I feel hopeless</div>
         </div>
+        <br><br>
 
  <!--       <div class="slidecontainer">
             <label for="creative">Your Creativity Level today: </label><br>
             <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="creative">
             <span id="value2"></span>
-        </div>
+        </div>-->
 
         <div class="slidecontainer">
-            <label for="Logical">Your physical energy today: </label><br>
+            <div class="sliderlabels">My physical energy is excellent, I feel active      </div>
+            
+            <div class="sliderbar">
+                <div class="sliderlabels">0</div>
+         <!--   <label for="Logical">Your physical energy today: </label><br>-->
             <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="logical">
-            <span id="value3"></span>
+            <span hidden id="value3"></span> 
+            <div class="sliderlabels">100</div>
         </div>
-    --> 
+        
+        <div class="sliderlabels">My physical energy is terrible, I feel exhausted        </div>
+        </div>
+    
 
         <div class="main">
             <details id="newTodo" class="newTodo">
@@ -53,15 +66,15 @@
                     <div class="slidecontainer">
                         <label for="attention">Attention span: </label><br>
                         <input type="range" min="1" max="100" value="50" class="slider" id="attentionSpan">
-                    </div>      
-                    <div class="slidecontainer">
+                    </div>      <br><br>
+               <!--     <div class="slidecontainer">
                         <label for="creativedemand">Creative demand: </label><br>
                         <input type="range" min="1" max="100" value="50" class="slider" id="creativeDemand">
-                    </div>
+                    </div> -->
                     <div class="slidecontainer">
                         <label for="physicaldemand">Physical demand: </label><br>
                         <input type="range" min="1" max="100" value="50" class="slider" id="physicalDemand">
-                    </div>
+                    </div><br><br>
                     <label for="due">Due date:</label><br>
                     <input type="date" id="due" name="duedate" value="2021-12-17" min="2021-01-01" max="2022-12-31"><br>
                     <textarea type="text" id="description"  name="description" placeholder="Description" style="height: 4em;"></textarea>
