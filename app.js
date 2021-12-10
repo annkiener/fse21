@@ -55,14 +55,12 @@ function addTodoFromWebsite(todo){
     var desc = document.getElementById("description").value;
     var attention = parseInt(document.getElementById("attentionSpan").value);
     //var creative = parseInt(document.getElementById("creativeDemand").value);
-    var physical = parseInt(document.getElementById("physicalDemand").value);
-    console.log(typeof(attention));
+    var physical = parseInt(document.getElementById("physicalDemand").value);    
     let id = storeNewTodo(todo, username, false, due, desc, attention, physical);
     addTodo(todo, due, false, desc, id, attention, physical);
     //we have to clear the values again, otherwise they'll stay like that
     document.getElementById("newTodo").open = false;
-    document.getElementById("attentionSpan").value = 50;
-    //document.getElementById("creativeDemand").value = 50;
+    document.getElementById("attentionSpan").value = 50;    
     document.getElementById("physicalDemand").value = 50;
     document.getElementById("description").value = "";
 
@@ -83,9 +81,7 @@ function addTodo(todo, due, done, description, id, attention, physical, color="#
             <button name="deleteButton" ><i class="fas fa-trash"></i></button>
             <span class="hidden">${id}</span>
           </summary>
-          <p>${description}</p>
-          <p>${attention}</p>
-          <p>${physical}</p>
+          <p>${description.replaceAll("\n", "<br>")}</p>
         </details>
     `;    
     // the buttons are not yet positioned in the right place.
@@ -141,7 +137,6 @@ function storeNewTodo(title, user, done, due, description, attention, physical){
 
 }
 
-console.log(tasks)
 document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck);
 
 function handleClickDeleteOrCheck(e) {
@@ -177,18 +172,9 @@ function checkTodo(e) {
 }
 
 function deleteTodo(e) {
-    let item = e.target.parentNode;
-    console.log(item);
+    let item = e.target.parentNode;    
     let id = item.children[3].innerHTML;    
-    let newTasks = [];
-    let idx = 0;
-    tasks.forEach(todo =>{
-      if (todo.id != id){
-        newTasks[idx++] = todo;
-      }
-    })
-    tasks = newTasks;
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    deleteTodoById(id);
     item.addEventListener('transitionend', function () {
         item.remove(); 
     });
@@ -197,13 +183,35 @@ function deleteTodo(e) {
     item.parentNode.parentNode.remove() //deletes the li element
 }
 
-document.getElementById('clearAll').addEventListener('click', handleClearAll);
-
-function handleClearAll(e) {
-    document.querySelector('ul').innerHTML = '';
+function deleteTodoById(id){
+  let newTasks = [];
+  let idx = 0;
+  tasks.forEach(todo =>{
+    if (todo.id != id){
+      newTasks[idx++] = todo;
+    }
+  })
+  tasks = newTasks;
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+document.getElementById('clearAll').addEventListener('click', clearAll);
 
+function handleClearAll(e) {
+  document.querySelector('ul').innerHTML = ''; //UI
+}
+
+function clearAll(){
+  //logic
+  if(confirm("Are you sure to delete all your todos?")){
+    let lis = document.querySelector('ul').children;    
+    for(let i = 0; i< lis.length; i++){
+      id = lis[i].children[0].children[0].children[3].innerHTML;        
+      deleteTodoById(id);
+    }
+    loadTodos(username);
+  }
+}
 
 /**
  * loads all todos from a user and displays them
@@ -211,8 +219,7 @@ function handleClearAll(e) {
  * @returns 
  */
 function loadTodos(name){  
-  handleClearAll(null);
-  console.log("loading todos");
+  handleClearAll(null);  
   //show new user name "form"
   if(name == "new User"){
     document.getElementById("newUserName").classList.remove("hidden");
@@ -228,26 +235,26 @@ function loadTodos(name){
   }
   document.getElementById("webpage").classList.remove("hidden");
   username = name;
-
+  //show todays tasks
   let todaysTasks = tasks.filter(todo => todo.due == date);
   todaysTasks.forEach(todo => {    
     addTodo_Today(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.physical);    
   });
-
+  //filter by user
   let histasks = tasks.filter(todo => todo.user == username && !todaysTasks.includes(todo));
+  
+  //filter by mood met
   let filtered = filterAndSort(histasks)
   filtered.forEach(todo => {    
     addTodo(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.physical);    
   });
+
+  //filter by mood not met
   let moodNotMetTasks = histasks.filter(todo => !filtered.includes(todo) && !todaysTasks.includes(todo));
   moodNotMetTasks.sort(customSort);
   moodNotMetTasks.forEach(todo => {    
     addTodo_MoodNotMet(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.physical);    
   });
-  console.log("appropriate tasks");
-  console.log(filtered);
-  console.log("inappropriate tasks");
-  console.log(moodNotMetTasks);
 }
 
 /**
@@ -257,10 +264,8 @@ function loadTodos(name){
  */
 function filterAndSort(filtered){
   var attention = document.getElementById("physical").value;
-//  var creative = document.getElementById("creative").value;
-  var physical = document.getElementById("logical").value;
-  console.log("attention: " + attention + "physical: " + physical);  
-  filtered = filtered.filter(todo => todo.attention <= attention && todo.physical <= physical);
+  var physical = document.getElementById("logical").value;   
+  filtered = filtered.filter(todo => todo.attention >= attention && todo.physical >= physical);
   filtered.sort(customSort); 
   return filtered
 }
@@ -276,8 +281,8 @@ function customSort(todo1, todo2){
   //i don't know what's best here //TODO
   let totalDemand1 = todo1.attention + todo1. physical;
   let totalDemand2 = todo2.attention + todo2. physical;
-  if (totalDemand1<totalDemand2) return -1;
-  if (totalDemand1>totalDemand2) return 1;
+  if (totalDemand1<totalDemand2) return 1;
+  if (totalDemand1>totalDemand2) return -1;
   return 0;
 }
 
@@ -285,7 +290,7 @@ function customSort(todo1, todo2){
  * get tasks if not there yet and load usernames
  */
 async function loadUsernames(){ 
-  await loadTasks().catch((error) => {console.log(error);});  
+  await loadTasks().catch((error) => {});  
   let usernames = [];
   tasks.forEach(todo => {
     if (usernames.lastIndexOf(todo.user) == -1){
