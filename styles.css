@@ -202,6 +202,7 @@ summary{
     height: 100%;
     overflow-y: auto;
     display: flex;
+    width: 700px;
 }
 
 .slidecontainer{
@@ -224,4 +225,9 @@ summary{
     display: flex;
     width: 30%;
     text-align: center;
+    float: right;
+}
+
+.slidecontainer .zerolabel{
+    float: right;
 }
