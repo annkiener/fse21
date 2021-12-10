@@ -25,9 +25,11 @@
         <div class="slidecontainer">
             <div class="sliderlabels">My mood is excellent, I feel optimistic</div>
            <br><br> 
-            <div class="sliderbar">                
+            <div class="sliderbar">
+                <div class="zerolabel">0</div>                
                <!-- <label for="physical" id="display"></label><br>-->
                 <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="physical">
+                <div class="zerolabel">100</div>
                 <span hidden id="value"></span>                
             </div>
             
@@ -44,9 +46,11 @@
         <div class="slidecontainer">
             <div class="sliderlabels">My physical energy is excellent, I feel active      </div>
             
-            <div class="sliderbar">                
+            <div class="sliderbar">    
+                <div class="zerolabel">0</div>            
          <!--   <label for="Logical">Your physical energy today: </label><br>-->
             <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="logical">
+            <div class="zerolabel">100</div>
             <span hidden id="value3"></span>             
         </div>
         
