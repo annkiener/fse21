@@ -25,12 +25,10 @@
         <div class="slidecontainer">
             <div class="sliderlabels">My mood is excellent, I feel optimistic</div>
            <br><br> 
-            <div class="sliderbar">
-                <div class="zerolabel">0</div>
+            <div class="sliderbar">                
                <!-- <label for="physical" id="display"></label><br>-->
                 <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="physical">
-                <span hidden id="value"></span>
-                <div class="zerolabel">100</div>
+                <span hidden id="value"></span>                
             </div>
             
             <div class="sliderlabels">My mood is terrible, I feel hopeless</div>
@@ -46,12 +44,10 @@
         <div class="slidecontainer">
             <div class="sliderlabels">My physical energy is excellent, I feel active      </div>
             
-            <div class="sliderbar">
-                <div class="zerolabel">0</div>
+            <div class="sliderbar">                
          <!--   <label for="Logical">Your physical energy today: </label><br>-->
             <input type="range" oninput="getSliderValues(this.id)" min="1" max="100" value="50" class="slider" id="logical">
-            <span hidden id="value3"></span> 
-            <div class="zerolabel">100</div>
+            <span hidden id="value3"></span>             
         </div>
         
         <div class="sliderlabels">My physical energy is terrible, I feel exhausted        </div>
@@ -62,24 +58,27 @@
             <details id="newTodo" class="newTodo">
                 <summary>Create new Todo</summary>
                 <form>
-                    <input type="text" id="fname" todo="fname" placeholder="New Todo ..."><br>
+                    <input type="text" id="fname" todo="fname" placeholder="Todo Title..."><br>
                     <div class="slidecontainer">
-                        <label for="attention">Attention span: </label><br>
+                        <label for="attention">High attention demand</label><br>
                         <input type="range" min="1" max="100" value="50" class="slider" id="attentionSpan">
+                        <div class="sliderlabels">Low attention demand</div>
                     </div>      <br><br>
+
                <!--     <div class="slidecontainer">
                         <label for="creativedemand">Creative demand: </label><br>
                         <input type="range" min="1" max="100" value="50" class="slider" id="creativeDemand">
                     </div> -->
                     <div class="slidecontainer">
-                        <label for="physicaldemand">Physical demand: </label><br>
+                        <label for="physicaldemand">High physical demand</label><br>
                         <input type="range" min="1" max="100" value="50" class="slider" id="physicalDemand">
+                        <div class="sliderlabels">Low physical &nbsp; demand</div>
                     </div><br><br>
                     <label for="due">Due date:</label><br>
                     <input type="date" id="due" name="duedate" value="2021-12-17" min="2021-01-01" max="2022-12-31"><br>
                     <textarea type="text" id="description"  name="description" placeholder="Description" style="height: 4em;"></textarea>
 
-                    <button type="submit"><i class="fas fa-plus-square"></i></button>
+                    <button type="submit" style="height: 2em;"><i class="fas fa-plus-square fa-stack-2x" style="margin-top: -0.5em;"></i></button>
                 </form><br>
             </details>
         </div> 
