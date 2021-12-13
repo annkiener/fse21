@@ -76,7 +76,7 @@ function addTodo(todo, due, done, description, id, attention, physical, color="#
     li.innerHTML = `
         <details style="color: ${color}">
           <summary>
-            <span class="todo-item">${todo}<br><br>${due}</span>            
+            <span class="todo-item">${todo}<br><br>${formatDate(due)}</span>            
             <button name="checkButton"><i class="fas fa-square"></i></button>
             <button name="deleteButton" ><i class="fas fa-trash"></i></button>
             <span class="hidden">${id}</span>
@@ -99,6 +99,16 @@ function addTodo_Today(todo, due, done, description, id, attention, physical) {
   addTodo(todo, due, done, description, id, attention, physical, color="red");
 }
 
+/**
+ * formats a date string to DD.mm.YYYY
+ * @param {date string} due 
+ * @returns 
+ */
+function formatDate(due){
+  var date = new Date(due);
+  dateStr = date.getDate() +"."+ date.getMonth() +"." + date.getFullYear();
+  return dateStr;
+}
 
 //sorting the todos according to the mood
 function sortPlanner(){
@@ -220,6 +230,7 @@ function clearAll(){
  */
 function loadTodos(name){  
   handleClearAll(null);  
+  console.log("loading todos");
   //show new user name "form"
   if(name == "new User"){
     document.getElementById("newUserName").classList.remove("hidden");
@@ -278,11 +289,18 @@ function filterAndSort(filtered){
  * @returns 
  */
 function customSort(todo1, todo2){
-  //i don't know what's best here //TODO
+  console.log("sorting");
   let totalDemand1 = todo1.attention + todo1. physical;
   let totalDemand2 = todo2.attention + todo2. physical;
+  //put the todos that are done last
+  if (todo1.done != todo2.done && todo2.done) return -1;
+  if (todo1.done != todo2.done && todo1.done) return 1;
+  //sort by mood
   if (totalDemand1<totalDemand2) return 1;
   if (totalDemand1>totalDemand2) return -1;
+  //sort by due date last
+  if (todo1.due < todo2.due) return 1;
+  if (todo2.due < todo2.due) return -1;
   return 0;
 }
 
@@ -299,7 +317,21 @@ async function loadUsernames(){
   });
 
   let usernamesMarkup = document.querySelector("select");
- 
+  usernamesMarkup.children = [];
+  //add choose user default
+  let chooseUserOption = document.createElement("option");
+  chooseUserOption.value = "Choose User";
+  chooseUserOption.innerHTML = "Choose User";
+  chooseUserOption.disabled = true;
+  chooseUserOption.hidden = true;
+  chooseUserOption.selected = true;
+  //add new user option
+  usernamesMarkup.appendChild(chooseUserOption);
+  let newUserOption = document.createElement("option");
+  newUserOption.value = "New User";
+  newUserOption.innerHTML = "New User";
+  usernamesMarkup.appendChild(newUserOption);
+  //add users
   usernames.forEach(username => {
     let option = document.createElement("option");
     option.value = username;
