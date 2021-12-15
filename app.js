@@ -229,8 +229,7 @@ function clearAll(){
  * @returns 
  */
 function loadTodos(name){  
-  handleClearAll(null);  
-  console.log("loading todos");
+  handleClearAll(null);    
   //show new user name "form"
   if(name == "new User"){
     document.getElementById("newUserName").classList.remove("hidden");
@@ -247,7 +246,7 @@ function loadTodos(name){
   document.getElementById("webpage").classList.remove("hidden");
   username = name;
   //show todays tasks
-  let todaysTasks = tasks.filter(todo => todo.due == date);
+  let todaysTasks = tasks.filter(todo => todo.due <= date && !todo.done);
   todaysTasks.forEach(todo => {    
     addTodo_Today(todo.title, todo.due, todo.done, todo.description, todo.id, todo.attention, todo.physical);    
   });
@@ -288,8 +287,7 @@ function filterAndSort(filtered){
  * @param {Todo} todo2 
  * @returns 
  */
-function customSort(todo1, todo2){
-  console.log("sorting");
+function customSort(todo1, todo2){  
   let totalDemand1 = todo1.attention + todo1. physical;
   let totalDemand2 = todo2.attention + todo2. physical;
   //put the todos that are done last
@@ -328,8 +326,8 @@ async function loadUsernames(){
   //add new user option
   usernamesMarkup.appendChild(chooseUserOption);
   let newUserOption = document.createElement("option");
-  newUserOption.value = "New User";
-  newUserOption.innerHTML = "New User";
+  newUserOption.value = "new User";
+  newUserOption.innerHTML = "new User";
   usernamesMarkup.appendChild(newUserOption);
   //add users
   usernames.forEach(username => {
