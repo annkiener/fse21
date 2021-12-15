@@ -328,8 +328,8 @@ async function loadUsernames(){
   //add new user option
   usernamesMarkup.appendChild(chooseUserOption);
   let newUserOption = document.createElement("option");
-  newUserOption.value = "New User";
-  newUserOption.innerHTML = "New User";
+  newUserOption.value = "new User";
+  newUserOption.innerHTML = "new User";
   usernamesMarkup.appendChild(newUserOption);
   //add users
   usernames.forEach(username => {
