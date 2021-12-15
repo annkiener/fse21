@@ -106,7 +106,8 @@ function addTodo_Today(todo, due, done, description, id, attention, physical) {
  */
 function formatDate(due){
   var date = new Date(due);
-  dateStr = date.getDate() +"."+ date.getMonth() +"." + date.getFullYear();
+  var month = date.getMonth() + 1;
+  dateStr = date.getDate() +"."+ month +"." + date.getFullYear();
   return dateStr;
 }
 
